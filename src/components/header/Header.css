@@ -15,7 +15,14 @@
 
 .header-title {
   font-size: 1.3rem;
-  color: #222;
-  font-weight: 500;
+  color: #404040;
+  font-weight: 700;
   letter-spacing: 1px;
+  margin: 0;
+}
+
+.header-sub-title {
+  color: #b9b9b9;
+  margin-top: 8px;
+  font-weight: 400;
 }
