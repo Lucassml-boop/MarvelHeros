@@ -3,9 +3,10 @@ import './SearchBar.css'
 
 type Props = {
   onSearch: (query: string) => void
+  bgColorVar?: string
 }
 
-export default function SearchBar({ onSearch }: Props) {
+export default function SearchBar({ onSearch, bgColorVar = '--color-bg-light' }: Props) {
   const [value, setValue] = useState('')
 
   function handleSubmit(e: React.FormEvent) {
@@ -15,7 +16,10 @@ export default function SearchBar({ onSearch }: Props) {
 
   return (
     <form className="search-bar" onSubmit={handleSubmit}>
-      <div className="search-bg">
+      <div
+        className="search-bg"
+        style={{ background: `var(${bgColorVar})` }}
+      >
         <img
           src="/src/assets/busca/Shape/Rectangle.png"
           alt=""
