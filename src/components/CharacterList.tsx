@@ -3,6 +3,7 @@ import axios from 'axios'
 import md5 from 'md5'
 import CharacterCard from './CharacterCard'
 import SearchBar from './SearchBar'
+import './CharacterList.css'
 
 const MARVEL_API = 'https://gateway.marvel.com/v1/public/characters'
 const PUBLIC_KEY = import.meta.env.VITE_MARVEL_PUBLIC_KEY
@@ -20,6 +21,9 @@ type Character = {
 export default function CharacterList() {
   const [characters, setCharacters] = useState<Character[]>([])
   const [loading, setLoading] = useState(true)
+  const [total, setTotal] = useState(0)
+  const [orderAZ, setOrderAZ] = useState(false)
+  const [showFavorites, setShowFavorites] = useState(false)
 
   function fetchCharacters(query?: string) {
     setLoading(true)
@@ -37,6 +41,7 @@ export default function CharacterList() {
       })
       .then((res) => {
         setCharacters(res.data.data.results)
+        setTotal(res.data.data.total)
         setLoading(false)
       })
       .catch(() => setLoading(false))
@@ -46,16 +51,92 @@ export default function CharacterList() {
     fetchCharacters()
   }, [])
 
+  // Ordenação dos personagens por nome A-Z
+  const sortedCharacters = orderAZ
+    ? [...characters].sort((a, b) => a.name.localeCompare(b.name))
+    : characters
+
+  // Simulação: favoritos são personagens cujo nome começa com "A"
+  const favoriteCharacters = sortedCharacters.filter(char => char.name.startsWith('A'))
+  const displayedCharacters = showFavorites ? favoriteCharacters : sortedCharacters
+
   return (
     <>
       <SearchBar onSearch={fetchCharacters} />
+      <div className="character-info-row">
+        <span className="character-count">
+          Encontrados {displayedCharacters.length} herois
+        </span>
+        <div className="character-order">
+          <img
+            src="/src/assets/icones/heroi/noun_Superhero_2227044@1,5x.svg"
+            alt="Herói"
+            className="character-order-icon"
+          />
+          <span className="character-order-text">Ordernar por nome - A/Z</span>
+          <button
+            className="character-order-toggle"
+            onClick={() => setOrderAZ((prev) => !prev)}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              padding: 0,
+              marginLeft: '8px',
+              display: 'flex',
+              alignItems: 'center',
+              outline: 'none'
+            }}
+            aria-label="Toggle order A/Z"
+            tabIndex={0}
+          >
+            <img
+              src={
+                orderAZ
+                  ? '/src/assets/toggle/Group 6@1,5x.svg'
+                  : '/src/assets/toggle/Group 2.svg'
+              }
+              alt={orderAZ ? 'Ordenação A/Z ativada' : 'Ordenação A/Z desativada'}
+              className="character-order-toggle-img"
+            />
+          </button>
+          <button
+            className="character-favorite-toggle"
+            onClick={() => setShowFavorites((prev) => !prev)}
+            aria-label="Filtrar favoritos"
+            tabIndex={0}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              padding: 0,
+              marginLeft: '8px',
+              display: 'flex',
+              alignItems: 'center',
+              outline: 'none'
+            }}
+          >
+            <img
+              src="/src/assets/icones/heart/Path Copy 7.svg"
+              alt="Filtrar favoritos"
+              className="character-favorite-toggle-img"
+              style={{ width: 15, height: 15 }}
+            />
+          </button>
+          <span style={{ marginLeft: '4px', color: '#ff1510', fontSize: '0.95rem' }}>
+            somente favoritos
+          </span>
+        </div>
+      </div>
       {loading ? (
         <p>Loading...</p>
       ) : (
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
-          {characters.map((char) => (
-            <CharacterCard key={char.id} character={char} />
-          ))}
+          {displayedCharacters.length === 0 && showFavorites
+            ? null
+            : displayedCharacters.map((char) => (
+                <CharacterCard key={char.id} character={char} />
+              ))}
         </div>
       )}
     </>

@@ -1,0 +1,71 @@
+.character-info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-weight: 400;
+  font-size: 0.95rem;
+  margin: 8px 0 16px 0;
+  padding: 0 32px;
+}
+
+.character-count {
+  color: #b9b9b9;
+}
+
+.character-order {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.character-order-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.character-order-text {
+  color: #ff1510;
+}
+
+.character-order-toggle {
+  outline: none;
+}
+
+.character-order-toggle:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.character-order-toggle-img {
+  width: 40px;
+  height: 40px;
+  transition: opacity 0.3s cubic-bezier(0.4,0,0.2,1), transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  will-change: opacity, transform;
+}
+
+.character-order-toggle:active .character-order-toggle-img {
+  transform: scale(0.95);
+  opacity: 0.7;
+}
+
+.character-favorite-toggle {
+  outline: none;
+}
+
+.character-favorite-toggle:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.character-favorite-toggle-img {
+  width: 15px;
+  height: 15px;
+  transition: opacity 0.3s cubic-bezier(0.4,0,0.2,1), transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  will-change: opacity, transform;
+}
+
+.character-favorite-toggle:active .character-favorite-toggle-img {
+  transform: scale(0.95);
+  opacity: 0.7;
+}
