@@ -24,10 +24,11 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 h1 {
@@ -53,6 +54,14 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
+/* Verifique se existe algo como: */
+/*
+input {
+  color: ...;
+}
+*/
+/* Se existir, remova ou ajuste para não afetar .search-input */
 
 @media (prefers-color-scheme: light) {
   :root {

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import md5 from 'md5'
 import CharacterCard from './CharacterCard'
-import SearchBar from './SearchBar'
+import SearchBar from '../search/SearchBar'
 import './CharacterList.css'
 
 const MARVEL_API = 'https://gateway.marvel.com/v1/public/characters'
@@ -128,12 +128,7 @@ export default function CharacterList() {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: 16,
-          justifyContent: 'center'
-        }}>
+        <div className="character-list-cards-container">
           {displayedCharacters.length === 0 && showFavorites
             ? null
             : displayedCharacters.map((char) => (

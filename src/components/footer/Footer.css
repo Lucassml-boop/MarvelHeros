@@ -1,0 +1,9 @@
+.footer {
+  width: 100%;
+  min-height: 50px;
+  background: #ff1510;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

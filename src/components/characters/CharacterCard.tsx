@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 type Character = {
   id: number
   name: string

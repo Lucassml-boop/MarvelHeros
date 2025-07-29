@@ -27,7 +27,7 @@ export default function SearchBar({ onSearch }: Props) {
         </button>
         <input
           type="text"
-          placeholder="Buscar personagem..."
+          placeholder="Procure por heróis..."
           value={value}
           onChange={e => setValue(e.target.value)}
           className="search-input"
