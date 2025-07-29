@@ -21,9 +21,9 @@ type Character = {
 export default function CharacterList() {
   const [characters, setCharacters] = useState<Character[]>([])
   const [loading, setLoading] = useState(true)
-  const [total, setTotal] = useState(0)
-  const [orderAZ, setOrderAZ] = useState(false)
+  const [orderAZ, setOrderAZ] = useState(true) // Começa com A-Z
   const [showFavorites, setShowFavorites] = useState(false)
+  const [favorites, setFavorites] = useState<number[]>([])
 
   function fetchCharacters(query?: string) {
     setLoading(true)
@@ -41,7 +41,6 @@ export default function CharacterList() {
       })
       .then((res) => {
         setCharacters(res.data.data.results)
-        setTotal(res.data.data.total)
         setLoading(false)
       })
       .catch(() => setLoading(false))
@@ -51,14 +50,20 @@ export default function CharacterList() {
     fetchCharacters()
   }, [])
 
-  // Ordenação dos personagens por nome A-Z
-  const sortedCharacters = orderAZ
-    ? [...characters].sort((a, b) => a.name.localeCompare(b.name))
-    : characters
+  // Ordenação dos personagens por nome A-Z ou Z-A
+  const sortedCharacters = [...characters].sort((a, b) =>
+    orderAZ ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)
+  )
 
-  // Simulação: favoritos são personagens cujo nome começa com "A"
-  const favoriteCharacters = sortedCharacters.filter(char => char.name.startsWith('A'))
+  // Filtra personagens favoritos
+  const favoriteCharacters = sortedCharacters.filter(char => favorites.includes(char.id))
   const displayedCharacters = showFavorites ? favoriteCharacters : sortedCharacters
+
+  function toggleFavorite(id: number) {
+    setFavorites(favs =>
+      favs.includes(id) ? favs.filter(favId => favId !== id) : [...favs, id]
+    )
+  }
 
   return (
     <>
@@ -73,20 +78,12 @@ export default function CharacterList() {
             alt="Herói"
             className="character-order-icon"
           />
-          <span className="character-order-text">Ordernar por nome - A/Z</span>
+          <span className="character-order-text">
+            Ordernar por nome - {orderAZ ? 'A/Z' : 'Z/A'}
+          </span>
           <button
             className="character-order-toggle"
             onClick={() => setOrderAZ((prev) => !prev)}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              cursor: 'pointer',
-              padding: 0,
-              marginLeft: '8px',
-              display: 'flex',
-              alignItems: 'center',
-              outline: 'none'
-            }}
             aria-label="Toggle order A/Z"
             tabIndex={0}
           >
@@ -94,9 +91,9 @@ export default function CharacterList() {
               src={
                 orderAZ
                   ? '/src/assets/toggle/Group 6@1,5x.svg'
-                  : '/src/assets/toggle/Group 2.svg'
+                  : '/src/assets/toggle/Group 2.svg' 
               }
-              alt={orderAZ ? 'Ordenação A/Z ativada' : 'Ordenação A/Z desativada'}
+              alt={orderAZ ? 'Ordenação A/Z ativada' : 'Ordenação Z/A ativada'}
               className="character-order-toggle-img"
             />
           </button>
@@ -131,11 +128,21 @@ export default function CharacterList() {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
+        <div style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: 16,
+          justifyContent: 'center'
+        }}>
           {displayedCharacters.length === 0 && showFavorites
             ? null
             : displayedCharacters.map((char) => (
-                <CharacterCard key={char.id} character={char} />
+                <CharacterCard
+                  key={char.id}
+                  character={char}
+                  favorite={favorites.includes(char.id)}
+                  onToggleFavorite={() => toggleFavorite(char.id)}
+                />
               ))}
         </div>
       )}
