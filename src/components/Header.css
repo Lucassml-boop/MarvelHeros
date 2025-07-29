@@ -1,0 +1,21 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+}
+
+.header-logo {
+  width: 300px;
+  max-width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.header-title {
+  font-size: 1.3rem;
+  color: #222;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
