@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 type Character = {
   id: number
   name: string
@@ -27,33 +29,27 @@ export default function CharacterCard({ character, favorite, onToggleFavorite }:
       flexDirection: 'column',
       justifyContent: 'flex-start'
     }}>
-      <div style={{
-        width: '100%',
-        height: 180,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflow: 'hidden',
-        background: '#fff',
-        boxShadow: '0 4px 0 #ff1510'
-      }}>
-        <img
-          src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
-          alt={character.name}
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-          }}
-        />
-      </div>
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: 6,
-        marginTop: 8
-      }}>
+      <Link to={`/character/${character.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+        <div style={{
+          width: '100%',
+          height: 180,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          overflow: 'hidden',
+          background: '#fff',
+          boxShadow: '0 4px 0 #ff1510'
+        }}>
+          <img
+            src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+            alt={character.name}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+          />
+        </div>
         <h3 style={{
           fontSize: 18,
           margin: 0,
@@ -65,6 +61,14 @@ export default function CharacterCard({ character, favorite, onToggleFavorite }:
         }}>
           {character.name}
         </h3>
+      </Link>
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 6,
+        marginTop: 8
+      }}>
         <button
           onClick={onToggleFavorite}
           style={{

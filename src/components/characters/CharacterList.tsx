@@ -60,14 +60,22 @@ export default function CharacterList() {
   const displayedCharacters = showFavorites ? favoriteCharacters : sortedCharacters
 
   function toggleFavorite(id: number) {
-    setFavorites(favs =>
-      favs.includes(id) ? favs.filter(favId => favId !== id) : [...favs, id]
-    )
+    setFavorites(favs => {
+      if (favs.includes(id)) {
+        return favs.filter(favId => favId !== id)
+      } else {
+        if (favs.length >= 5) {
+          alert('Você só pode favoritar até 5 personagens.')
+          return favs
+        }
+        return [...favs, id]
+      }
+    })
   }
 
   return (
     <>
-      <SearchBar onSearch={fetchCharacters} />
+      <SearchBar onSearch={fetchCharacters} bgColorVar="--color-bg-light" />
       <div className="character-info-row">
         <span className="character-count">
           Encontrados {displayedCharacters.length} herois
