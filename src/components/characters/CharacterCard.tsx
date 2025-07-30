@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import './CharacterCard.css'
 
 type Character = {
   id: number
@@ -17,85 +18,39 @@ type Props = {
 
 export default function CharacterCard({ character, favorite, onToggleFavorite }: Props) {
   return (
-    <div style={{
-      borderRadius: 8,
-      padding: 12,
-      width: 180,
-      height: 260,
-      textAlign: 'center',
-      background: '#fafafa',
-      position: 'relative',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'flex-start'
-    }}>
-      <Link to={`/character/${character.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-        <div style={{
-          width: '100%',
-          height: 180,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          overflow: 'hidden',
-          background: '#fff',
-          boxShadow: '0 4px 0 #ff1510'
-        }}>
+    <div className="character-card">
+      <Link to={`/character/${character.id}`} className="character-card-link">
+        <div className="character-card-img-container">
           <img
             src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
             alt={character.name}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-            }}
+            className="character-card-img"
           />
         </div>
-        <h3 style={{
-          fontSize: 18,
-          margin: 0,
-          flex: 1,
-          textAlign: 'left',
-          whiteSpace: 'nowrap',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis'
-        }}>
-          {character.name}
-        </h3>
-      </Link>
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: 6,
-        marginTop: 8
-      }}>
-        <button
-          onClick={onToggleFavorite}
-          style={{
-            background: 'transparent',
-            border: 'none',
-            padding: 0,
-            cursor: 'pointer',
-            marginLeft: 6,
-            outline: 'none'
-          }}
-          aria-label={favorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
-        >
-          <img
-            src={
-              favorite
-                ? '/src/assets/icones/heart/Path Copy 7.svg'
-                : '/src/assets/icones/heart/Path Copy 2@1,5x.svg'
-            }
-            alt={favorite ? 'Favorito' : 'Não favorito'}
-            style={{
-              width: 14,
-              height: 14,
-              transition: 'opacity 0.3s cubic-bezier(0.4,0,0.2,1), transform 0.3s cubic-bezier(0.4,0,0.2,1)'
+        <div className="character-card-row">
+          <h3 className="character-card-name">
+            {character.name}
+          </h3>
+          <button
+            onClick={e => {
+              e.preventDefault();
+              onToggleFavorite();
             }}
-          />
-        </button>
-      </div>
+            className="character-card-fav-btn"
+            aria-label={favorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
+          >
+            <img
+              src={
+                favorite
+                  ? '/src/assets/icones/heart/Path Copy 7.svg'
+                  : '/src/assets/icones/heart/Path Copy 2@1,5x.svg'
+              }
+              alt={favorite ? 'Favorito' : 'Não favorito'}
+              className="character-card-fav-img"
+            />
+          </button>
+        </div>
+      </Link>
     </div>
   )
 }

@@ -9,9 +9,9 @@ function AppContent() {
   const location = useLocation()
   const isHome = location.pathname === '/'
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <div className="app-container">
       {isHome && <Header />}
-      <div style={{ flex: 1 }}>
+      <div className="app-content">
         <Routes>
           <Route path="/" element={<CharacterList />} />
           <Route path="/character/:id" element={<CharacterDetail />} />
