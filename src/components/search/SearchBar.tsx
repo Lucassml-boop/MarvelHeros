@@ -9,13 +9,14 @@ type Props = {
 export default function SearchBar({ onSearch, bgColorVar = '--color-bg-light' }: Props) {
   const [value, setValue] = useState('')
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    onSearch(value.trim())
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const val = e.target.value
+    setValue(val)
+    onSearch(val.trim())
   }
 
   return (
-    <form className="search-bar" onSubmit={handleSubmit}>
+    <form className="search-bar" onSubmit={e => e.preventDefault()}>
       <div
         className="search-bg"
         data-bg={bgColorVar}
@@ -33,7 +34,7 @@ export default function SearchBar({ onSearch, bgColorVar = '--color-bg-light' }:
           type="text"
           placeholder="Procure por heróis..."
           value={value}
-          onChange={e => setValue(e.target.value)}
+          onChange={handleChange}
           className="search-input"
         />
       </div>

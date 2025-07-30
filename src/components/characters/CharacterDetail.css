@@ -275,8 +275,8 @@
   left: 18px;
   top: 50%;
   transform: translateY(-50%);
-  width: 32px;
-  height: 32px;
+  width: 22px;
+  height: 22px;
   pointer-events: none;
   z-index: 2;
 }
@@ -320,4 +320,198 @@
   user-select: none;
   font-weight: bold;
   letter-spacing: 0.1em;
+}
+
+@media (max-width: 700px) {
+  html, body {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  .character-detail,
+  .character-detail-container {
+    max-width: 100vw;
+    overflow-x: hidden;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .character-detail-header {
+    width: 100vw;
+    box-sizing: border-box;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .character-detail-main {
+    width: 100vw;
+    box-sizing: border-box;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .character-detail-image {
+    width: 100vw;
+    max-width: 100vw;
+    min-width: 0;
+    height: 220px;
+    margin: 0;
+    border-radius: 0;
+    box-sizing: border-box;
+  }
+
+  .character-detail-comics-list {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    box-sizing: border-box;
+  }
+
+  .character-detail-comic-card {
+    width: 100vw;
+    max-width: 100vw;
+    min-width: 0;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+  }
+
+  .character-detail-comic-image {
+    width: 100vw;
+    max-width: 100vw;
+    min-width: 0;
+    height: 180px;
+    border-radius: 0;
+    box-sizing: border-box;
+  }
+
+  .character-detail-header {
+    flex-direction: column;
+    gap: 12px;
+    margin: 12px 0 24px 0;
+    align-items: flex-start;
+  }
+
+  .character-detail-logo {
+    width: 180px;
+    margin-bottom: 8px;
+  }
+
+  .character-detail-search-bg {
+    width: 100vw;
+    min-width: 0;
+    height: 60px;
+    padding: 0 8px;
+  }
+
+  .character-detail-search-input {
+    font-size: 1rem;
+    padding-left: 36px;
+  }
+
+  .character-detail-main {
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 12px;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .character-detail-image {
+    width: 100vw;
+    max-width: 100vw;
+    height: 220px;
+    margin: 0 auto 12px auto;
+    border-radius: 0;
+  }
+
+  .character-detail-title-row {
+    gap: 12px;
+    margin: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+  }
+
+  .character-detail-title {
+    padding-left: 0;
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+  }
+
+  .character-detail-description,
+  .character-detail-description-empty {
+    padding: 0 8px;
+    max-width: 100vw;
+    min-height: 60px;
+    height: auto;
+    font-size: 1rem;
+  }
+
+  .character-detail-info-row {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .character-detail-comics-label,
+  .character-detail-movies-label {
+    margin: 8px 0 8px 0;
+    font-size: 1rem;
+  }
+
+  .character-detail-comics-row,
+  .character-detail-movies-row {
+    margin: 8px 0 8px 0;
+    gap: 12px;
+  }
+
+  .character-detail-rating {
+    margin: 12px 0 8px 0;
+    gap: 10px;
+    font-size: 1rem;
+  }
+
+  .character-detail-last-comic {
+    margin: 8px 0 0 0;
+    font-size: 0.95rem;
+  }
+
+  .character-detail-comics-title {
+    margin: 24px 0 12px 8px;
+    font-size: 1.1rem;
+    text-align: left;
+  }
+
+  .character-detail-comics-list {
+    gap: 12px;
+    margin: 0 0 24px 0;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .character-detail-comic-card {
+    width: 100vw;
+    max-width: 100vw;
+    margin-bottom: 12px;
+  }
+
+  .character-detail-comic-image {
+    width: 100vw;
+    max-width: 100vw;
+    height: 180px;
+    border-radius: 0;
+  }
+
+  .character-detail-bg-name {
+    font-size: 12vw;
+    padding: 0;
+  }
 }
