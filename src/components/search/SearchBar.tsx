@@ -18,7 +18,7 @@ export default function SearchBar({ onSearch, bgColorVar = '--color-bg-light' }:
     <form className="search-bar" onSubmit={handleSubmit}>
       <div
         className="search-bg"
-        style={{ background: `var(${bgColorVar})` }}
+        data-bg={bgColorVar}
       >
         <img
           src="/src/assets/busca/Shape/Rectangle.png"
