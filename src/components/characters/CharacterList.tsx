@@ -86,7 +86,7 @@ export default function CharacterList() {
         </span>
         <div className="character-order">
           <img
-            src="/public/assets/icones/heroi/noun_Superhero_2227044@1,5x.svg"
+            src="/assets/icones/heroi/noun_Superhero_2227044@1,5x.svg"
             alt="Herói"
             className="character-order-icon"
           />
@@ -102,8 +102,8 @@ export default function CharacterList() {
             <img
               src={
                 orderAZ
-                  ? '/public/assets/toggle/Group 6@1,5x.svg'
-                  : '/public/assets/toggle/Group 2.svg' 
+                  ? '/assets/toggle/Group 6@1,5x.svg'
+                  : '/assets/toggle/Group 2.svg' 
               }
               alt={orderAZ ? 'Ordenação A/Z ativada' : 'Ordenação Z/A ativada'}
               className="character-order-toggle-img"
@@ -116,7 +116,7 @@ export default function CharacterList() {
             tabIndex={0}
           >
             <img
-              src="/public/assets/icones/heart/Path Copy 7.svg"
+              src="/assets/icones/heart/Path Copy 7.svg"
               alt="Filtrar favoritos"
               className="character-favorite-toggle-img"
             />

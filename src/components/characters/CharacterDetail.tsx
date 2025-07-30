@@ -9,8 +9,8 @@ const MARVEL_API = 'https://gateway.marvel.com/v1/public/characters'
 const PUBLIC_KEY = import.meta.env.VITE_MARVEL_PUBLIC_KEY
 const PRIVATE_KEY = import.meta.env.VITE_MARVEL_PRIVATE_KEY
 
-const STAR_EMPTY = '/public/assets/review/Path Copy 6@1,5x.svg'
-const STAR_FILLED = '/public/assets/review/Path@1,5x.svg'
+const STAR_EMPTY = '/assets/review/Path Copy 6@1,5x.svg'
+const STAR_FILLED = '/assets/review/Path@1,5x.svg'
 
 type Comic = {
   id: number
@@ -142,14 +142,14 @@ export default function CharacterDetail() {
       <div className="character-detail character-detail-container">
         <div className="character-detail-header">
           <img
-            src="/public/assets/logo/Group@1,5x.svg"
+            src="/assets/logo/Group@1,5x.svg"
             alt="Marvel Logo"
             className="character-detail-logo"
           />
           <div className="character-detail-search">
             <div className="character-detail-search-bg">
               <img
-                src="/public/assets/busca/Shape/Rectangle@1,5x.svg"
+                src="/assets/busca/Shape/Rectangle@1,5x.svg"
                 alt=""
                 className="character-detail-search-bg-img"
                 aria-hidden="true"
@@ -190,7 +190,7 @@ export default function CharacterDetail() {
                 }}
               />
               <img
-                src="/public/assets/busca/Lupa/Shape@1,5x.svg"
+                src="/assets/busca/Lupa/Shape@1,5x.svg"
                 alt="Buscar"
                 className="character-detail-search-icon"
               />
@@ -244,8 +244,8 @@ export default function CharacterDetail() {
                 <img
                   src={
                     favorite
-                      ? '/public/assets/icones/heart/Path Copy 7.svg'
-                      : '/public/assets/icones/heart/Path Copy 2@1,5x.svg'
+                      ? '/assets/icones/heart/Path Copy 7.svg'
+                      : '/assets/icones/heart/Path Copy 2@1,5x.svg'
                   }
                   alt={favorite ? 'Favorito' : 'Não favorito'}
                   className="character-card-fav-img"
@@ -269,7 +269,7 @@ export default function CharacterDetail() {
                 <span className="character-detail-comics-label">Quadrinhos</span>
                 <div className="character-detail-comics-row">
                   <img
-                    src="/public/assets/icones/book/Group@1,5x.svg"
+                    src="/assets/icones/book/Group@1,5x.svg"
                     alt="Quadrinhos"
                     className="character-detail-comics-icon"
                   />
@@ -304,7 +304,7 @@ export default function CharacterDetail() {
                 <span className="character-detail-movies-label">Séries</span>
                 <div className="character-detail-movies-row">
                   <img
-                    src="/public/assets/icones/video/Shape@1,5x.svg"
+                    src="/assets/icones/video/Shape@1,5x.svg"
                     alt="Séries"
                     className="character-detail-movies-icon"
                   />
