@@ -40,6 +40,8 @@
 .character-detail {
   background: #E7F6E7;
   min-height: 100vh;
+  position: relative;
+  z-index: 2;
 }
 
 .character-detail-container {
@@ -306,17 +308,16 @@
 
 .character-detail-bg-name {
   position: fixed;
-  bottom: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
   width: 100vw;
   text-align: center;
-  font-size: 2.5rem;
-  color: #b9b9b9;
-  letter-spacing: 2px;
-  font-weight: 700;
-  z-index: 1;
+  font-size: 8vw;
+  color: black;
   pointer-events: none;
   user-select: none;
-  background: transparent;
-  padding-bottom: 18px;
+  font-weight: bold;
+  letter-spacing: 0.1em;
 }
