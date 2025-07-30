@@ -65,19 +65,16 @@ export default function CharacterList() {
 
   function toggleFavorite(id: number) {
     setFavorites(favs => {
-      let newFavs;
       if (favs.includes(id)) {
-        newFavs = favs.filter(favId => favId !== id);
+        return favs.filter(favId => favId !== id)
       } else {
         if (favs.length >= 5) {
-          alert('Você só pode favoritar até 5 personagens.');
-          return favs;
+          alert('Você só pode favoritar até 5 personagens.')
+          return favs
         }
-        newFavs = [...favs, id];
+        return [...favs, id]
       }
-      localStorage.setItem('marvel_favorites', JSON.stringify(newFavs));
-      return newFavs;
-    });
+    })
   }
 
   return (

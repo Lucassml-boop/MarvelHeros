@@ -32,6 +32,7 @@
 
 .character-order-toggle {
   outline: none;
+  background: transparent;
 }
 
 .character-order-toggle:focus {
@@ -53,6 +54,7 @@
 
 .character-favorite-toggle {
   outline: none;
+  background: transparent;
 }
 
 .character-favorite-toggle:focus {
