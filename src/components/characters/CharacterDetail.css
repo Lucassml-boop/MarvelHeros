@@ -24,10 +24,18 @@
 .search-dropdown-item:hover {
   background: #E7F6E7;
 }
+.search-dropdown-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  margin-right: 8px;
+}
 .character-detail-title-row {
   display: flex;
   align-items: center;
   gap: 26%;
+  margin: auto 26% auto auto;
+  color:#404040;
 }
 .character-detail {
   background: #E7F6E7;
@@ -60,6 +68,12 @@
   flex: none;
 }
 
+.character-detail-search-btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin-right: 8px;
+}
 
 .character-detail-back {
   color: #ff1510;
@@ -96,7 +110,7 @@
 
 .character-detail-description {
   color: #404040;
-  padding: 0 22% 0 22%;
+  padding: 0 22% 0 15%;
   min-height: 80px;
   max-width: 420px;
   width: 100%;
@@ -107,9 +121,14 @@
   height: 120px;
 }
 
+.character-detail-description-empty {
+  color: #b9b9b9;
+  padding: 0 130px 0px 130px;
+}
+
 .character-detail-comics-title {
   margin: 10% 0 6% 15%;
-  color: black;
+  color: #404040;
   text-align: left;
 
 }
@@ -140,4 +159,164 @@
 .character-detail-comic-date {
   font-size: 12px;
   color: #b9b9b9;
+}
+
+.character-detail-comics-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  margin-top: 12px;
+  margin-bottom: 24px;
+}
+
+.character-detail-comics-label {
+  color: #404040;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 10px 10px 10px 80px;
+}
+
+.character-detail-comics-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.character-detail-comics-count {
+  color: #404040;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.character-detail-comics-row {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin: 10px 10px 10px 80px;
+}
+
+.character-detail-movies-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  margin-top: 12px;
+  margin-bottom: 24px;
+}
+
+.character-detail-movies-label {
+  color: #404040;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 10px 10px 10px 80px;
+}
+
+.character-detail-movies-row {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin: 10px 10px 10px 80px;
+}
+
+.character-detail-movies-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.character-detail-movies-count {
+  color: #404040;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.character-detail-info-row {
+  display: flex;
+  gap: 48px;
+}
+
+.character-detail-search-bg {
+  position: relative;
+  width: 620px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+}
+
+.character-detail-search-bg-img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.character-detail-search-input {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  font-size: 1.3rem;
+  padding-left: 48px;
+  background: transparent;
+  border-radius: 8px;
+  color: #ff1510;
+  z-index: 1;
+}
+
+.character-detail-search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.character-detail-rating {
+  display: flex;
+  gap: 15px;
+  margin: 18px 0 8px 83px;
+  font-size: 18px;
+  color: #404040;
+}
+
+.character-detail-rating-star {
+  width: 22px;
+  height: 22px;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.character-detail-rating-star:hover {
+  transform: scale(1.15);
+}
+
+.character-detail-last-comic {
+  margin: 12px 0 0 83px;
+  font-size: 1rem;
+  color: #404040;
+}
+
+.character-detail-bg-name {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  text-align: center;
+  font-size: 2.5rem;
+  color: #b9b9b9;
+  letter-spacing: 2px;
+  font-weight: 700;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  background: transparent;
+  padding-bottom: 18px;
 }

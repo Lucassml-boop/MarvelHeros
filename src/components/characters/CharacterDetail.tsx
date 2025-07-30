@@ -9,6 +9,9 @@ const MARVEL_API = 'https://gateway.marvel.com/v1/public/characters'
 const PUBLIC_KEY = import.meta.env.VITE_MARVEL_PUBLIC_KEY
 const PRIVATE_KEY = import.meta.env.VITE_MARVEL_PRIVATE_KEY
 
+const STAR_EMPTY = '/src/assets/review/Path Copy 6@1,5x.svg'
+const STAR_FILLED = '/src/assets/review/Path@1,5x.svg'
+
 type Comic = {
   id: number
   title: string
@@ -27,6 +30,12 @@ type Character = {
     path: string
     extension: string
   }
+  comics: {
+    available: number
+  }
+  series: {
+    available: number
+  }
 }
 
 export default function CharacterDetail() {
@@ -38,6 +47,8 @@ export default function CharacterDetail() {
   const [character, setCharacter] = useState<Character | null>(null)
   const [comics, setComics] = useState<Comic[]>([])
   const [loading, setLoading] = useState(true)
+  const [rating, setRating] = useState(0)
+
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
@@ -67,6 +78,8 @@ export default function CharacterDetail() {
     fetchData();
     const favs = JSON.parse(localStorage.getItem('marvel_favorites') || '[]');
     setFavorite(favs.includes(Number(id)));
+    const savedRating = Number(localStorage.getItem(`marvel_rating_${id}`) || 0)
+    setRating(savedRating)
   }, [id]);
   const [favorite, setFavorite] = useState(false)
 
@@ -86,8 +99,6 @@ export default function CharacterDetail() {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-
-
 
   if (loading) return <p>Carregando...</p>
   if (!character) return <p>Personagem não encontrado.</p>
@@ -111,6 +122,16 @@ export default function CharacterDetail() {
     });
   }
 
+  function handleSetRating(value: number) {
+    if (rating === value) {
+      setRating(0)
+      localStorage.removeItem(`marvel_rating_${id}`)
+    } else {
+      setRating(value)
+      localStorage.setItem(`marvel_rating_${id}`, String(value))
+    }
+  }
+
   return (
     <div className="character-detail character-detail-container">
       <div className="character-detail-header">
@@ -120,44 +141,54 @@ export default function CharacterDetail() {
           className="character-detail-logo"
         />
         <div className="character-detail-search">
-          <button className="search-btn" tabIndex={-1} style={{ background: 'transparent', border: 'none', padding: 0, marginRight: 8 }}>
-            <img src="/src/assets/busca/Lupa/Shape@1,5x.svg" alt="Buscar" className="search-icon" />
-          </button>
-          <input
-            ref={searchRef}
-            type="text"
-            className="search-input"
-            placeholder="Procure por heróis..."
-            onChange={async (e) => {
-              const value = e.target.value;
-              if (!value) {
-                setSearchResults([]);
-                return;
-              }
-              setSearchLoading(true);
-              const ts = Date.now().toString();
-              const hash = md5(ts + PRIVATE_KEY + PUBLIC_KEY);
-              try {
-                const res = await axios.get(MARVEL_API, {
-                  params: {
-                    nameStartsWith: value,
-                    limit: 5,
-                    ts,
-                    apikey: PUBLIC_KEY,
-                    hash,
-                  },
-                });
-                setSearchResults(res.data.data.results);
-              } catch {
-                setSearchResults([]);
-              }
-              setSearchLoading(false);
-            }}
-            autoComplete="off"
-            onKeyDown={e => {
-              if (e.key === 'Escape') setSearchResults([]);
-            }}
-          />
+          <div className="character-detail-search-bg">
+            <img
+              src="/src/assets/busca/Shape/Rectangle@1,5x.svg"
+              alt=""
+              className="character-detail-search-bg-img"
+              aria-hidden="true"
+            />
+            <input
+              ref={searchRef}
+              type="text"
+              className="search-input character-detail-search-input"
+              placeholder="Procure por heróis..."
+              onChange={async (e) => {
+                const value = e.target.value;
+                if (!value) {
+                  setSearchResults([]);
+                  return;
+                }
+                setSearchLoading(true);
+                const ts = Date.now().toString();
+                const hash = md5(ts + PRIVATE_KEY + PUBLIC_KEY);
+                try {
+                  const res = await axios.get(MARVEL_API, {
+                    params: {
+                      nameStartsWith: value,
+                      limit: 5,
+                      ts,
+                      apikey: PUBLIC_KEY,
+                      hash,
+                    },
+                  });
+                  setSearchResults(res.data.data.results);
+                } catch {
+                  setSearchResults([]);
+                }
+                setSearchLoading(false);
+              }}
+              autoComplete="off"
+              onKeyDown={e => {
+                if (e.key === 'Escape') setSearchResults([]);
+              }}
+            />
+            <img
+              src="/src/assets/busca/Lupa/Shape@1,5x.svg"
+              alt="Buscar"
+              className="character-detail-search-icon"
+            />
+          </div>
           {(searchLoading || searchResults.length > 0) && (
             <div
               className="search-dropdown"
@@ -172,7 +203,7 @@ export default function CharacterDetail() {
                   <img
                     src={`${char.thumbnail.path}.${char.thumbnail.extension}`}
                     alt={char.name}
-                    style={{ width: 32, height: 32, borderRadius: 4, marginRight: 8 }}
+                    className="search-dropdown-img"
                   />
                   {char.name}
                 </a>
@@ -215,7 +246,68 @@ export default function CharacterDetail() {
               />
             </button>
           </div>
-          <p className="character-detail-description">{character.description || 'Sem descrição.'}</p>
+          <p
+            className={
+              !character.description || character.description.trim().length === 0
+                ? "character-detail-description character-detail-description-empty"
+                : "character-detail-description"
+            }
+          >
+            {character.description && character.description.trim().length > 0
+              ? character.description
+              : 'Sem descrição disponível.'
+            }
+          </p>
+          <div className="character-detail-info-row">
+            <div className="character-detail-comics-info">
+              <span className="character-detail-comics-label">Quadrinhos</span>
+              <div className="character-detail-comics-row">
+                <img
+                  src="/src/assets/icones/book/Group@1,5x.svg"
+                  alt="Quadrinhos"
+                  className="character-detail-comics-icon"
+                />
+                <span className="character-detail-comics-count">
+                  {character.comics?.available ?? 0}
+                </span>
+              </div>
+              <div className="character-detail-rating">
+                Rating:
+                {[1, 2, 3, 4, 5].map(num => (
+                  <img
+                    key={num}
+                    src={rating >= num ? STAR_FILLED : STAR_EMPTY}
+                    alt={`Estrela ${num}`}
+                    className="character-detail-rating-star"
+                    onClick={() => handleSetRating(num)}
+                  />
+                ))}
+              </div>
+              <div className="character-detail-last-comic">
+                Último quadrinho: {
+                  comics.length > 0
+                    ? (() => {
+                        const date = comics[0].dates.find(d => d.type === 'onsaleDate')?.date;
+                        return date ? new Date(date).toLocaleDateString() : '--';
+                      })()
+                    : '--'
+                }
+              </div>
+            </div>
+            <div className="character-detail-movies-info">
+              <span className="character-detail-movies-label">Séries</span>
+              <div className="character-detail-movies-row">
+                <img
+                  src="/src/assets/icones/video/Shape@1,5x.svg"
+                  alt="Séries"
+                  className="character-detail-movies-icon"
+                />
+                <span className="character-detail-movies-count">
+                  {character.series?.available ?? 0}
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <h3 className="character-detail-comics-title">Últimos quadrinhos lançados</h3>
@@ -237,5 +329,10 @@ export default function CharacterDetail() {
         ))}
       </div>
     </div>
+    {character && (
+      <div className="character-detail-bg-name">
+        {character.name}
+      </div>
+    )}
   );
 }
