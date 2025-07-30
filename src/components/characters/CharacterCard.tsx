@@ -17,6 +17,17 @@ type Props = {
 }
 
 export default function CharacterCard({ character, favorite, onToggleFavorite }: Props) {
+  function handleFavoriteClick(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (favorite) {
+      const favs = JSON.parse(localStorage.getItem('marvel_favorites') || '[]');
+      const newFavs = favs.filter((favId: number) => favId !== character.id);
+      localStorage.setItem('marvel_favorites', JSON.stringify(newFavs));
+    }
+    onToggleFavorite();
+  }
+
   return (
     <div className="character-card">
       <Link to={`/character/${character.id}`} className="character-card-link">
@@ -32,10 +43,7 @@ export default function CharacterCard({ character, favorite, onToggleFavorite }:
             {character.name}
           </h3>
           <button
-            onClick={e => {
-              e.preventDefault();
-              onToggleFavorite();
-            }}
+            onClick={handleFavoriteClick}
             className="character-card-fav-btn"
             aria-label={favorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
           >
