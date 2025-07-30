@@ -1,69 +1,73 @@
-# React + TypeScript + Vite
+# Marvel Heroes
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Marvel Heroes é uma aplicação web desenvolvida com React, TypeScript e Vite que permite buscar, visualizar detalhes e favoritar personagens do universo Marvel, utilizando a API oficial da Marvel.
 
-Currently, two official plugins are available:
+## Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Busca de personagens:** Pesquise heróis pelo nome e acesse rapidamente seus detalhes.
+- **Detalhes do personagem:** Veja informações, descrição, quadrinhos e séries de cada personagem.
+- **Favoritar personagens:** Adicione até 5 personagens aos favoritos (armazenados localmente).
+- **Avaliação:** Dê uma nota de 1 a 5 estrelas para cada personagem.
+- **Últimos quadrinhos:** Veja os quadrinhos mais recentes lançados para cada personagem.
 
-## Expanding the ESLint configuration
+## Tecnologias Utilizadas
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- [Axios](https://axios-http.com/)
+- [MD5](https://www.npmjs.com/package/md5) (para autenticação na API Marvel)
+- [React Router](https://reactrouter.com/)
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Como rodar o projeto
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### 1. Clone o repositório
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone https://github.com/seu-usuario/marvelHeros.git
+cd marvelHeros
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Instale as dependências
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
+
+### 3. Configure as chaves da API Marvel
+
+Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
+
+```
+VITE_MARVEL_PUBLIC_KEY=SuaPublicKeyAqui
+VITE_MARVEL_PRIVATE_KEY=SuaPrivateKeyAqui
+```
+
+Obtenha suas chaves em: [Marvel Developer Portal](https://developer.marvel.com/)
+
+### 4. Execute o projeto
+
+```bash
+npm run dev
+```
+
+Acesse [http://localhost:5173](http://localhost:5173) no navegador.
+
+## Estrutura de Pastas
+
+```
+src/
+  components/
+    characters/
+      CharacterDetail.tsx
+      ...
+  assets/
+  ...
+```
+
+## Observações
+
+- Os favoritos e avaliações são salvos no `localStorage` do navegador.
+- O limite de favoritos é 5 personagens.
+
+---
