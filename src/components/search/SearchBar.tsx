@@ -21,13 +21,13 @@ export default function SearchBar({ onSearch, bgColorVar = '--color-bg-light' }:
         data-bg={bgColorVar}
       >
         <img
-          src="/src/assets/busca/Shape/Rectangle.png"
+          src="/public/assets/busca/Shape/Rectangle.png"
           alt=""
           className="search-bg-img search-bg-rectangle"
           aria-hidden="true"
         />
         <button type="submit" className="search-btn">
-          <img src="/src/assets/busca/Lupa/Shape@1,5x.svg" alt="Buscar" className="search-icon" />
+          <img src="/public/assets/busca/Lupa/Shape@1,5x.svg" alt="Buscar" className="search-icon" />
         </button>
         <input
           type="text"

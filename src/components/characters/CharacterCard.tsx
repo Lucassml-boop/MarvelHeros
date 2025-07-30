@@ -50,8 +50,8 @@ export default function CharacterCard({ character, favorite, onToggleFavorite }:
             <img
               src={
                 favorite
-                  ? '/src/assets/icones/heart/Path Copy 7.svg'
-                  : '/src/assets/icones/heart/Path Copy 2@1,5x.svg'
+                  ? '/public/assets/icones/heart/Path Copy 7.svg'
+                  : '/public/assets/icones/heart/Path Copy 2@1,5x.svg'
               }
               alt={favorite ? 'Favorito' : 'Não favorito'}
               className="character-card-fav-img"
