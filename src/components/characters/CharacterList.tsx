@@ -25,6 +25,10 @@ export default function CharacterList() {
   const [showFavorites, setShowFavorites] = useState(false)
   const [favorites, setFavorites] = useState<number[]>([])
 
+  useEffect(() => {
+    const favs = JSON.parse(localStorage.getItem('marvel_favorites') || '[]');
+    setFavorites(favs);
+  }, [])
   function fetchCharacters(query?: string) {
     setLoading(true)
     const ts = Date.now().toString()
@@ -61,16 +65,19 @@ export default function CharacterList() {
 
   function toggleFavorite(id: number) {
     setFavorites(favs => {
+      let newFavs;
       if (favs.includes(id)) {
-        return favs.filter(favId => favId !== id)
+        newFavs = favs.filter(favId => favId !== id);
       } else {
         if (favs.length >= 5) {
-          alert('Você só pode favoritar até 5 personagens.')
-          return favs
+          alert('Você só pode favoritar até 5 personagens.');
+          return favs;
         }
-        return [...favs, id]
+        newFavs = [...favs, id];
       }
-    })
+      localStorage.setItem('marvel_favorites', JSON.stringify(newFavs));
+      return newFavs;
+    });
   }
 
   return (
@@ -110,25 +117,14 @@ export default function CharacterList() {
             onClick={() => setShowFavorites((prev) => !prev)}
             aria-label="Filtrar favoritos"
             tabIndex={0}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              cursor: 'pointer',
-              padding: 0,
-              marginLeft: '8px',
-              display: 'flex',
-              alignItems: 'center',
-              outline: 'none'
-            }}
           >
             <img
               src="/src/assets/icones/heart/Path Copy 7.svg"
               alt="Filtrar favoritos"
               className="character-favorite-toggle-img"
-              style={{ width: 15, height: 15 }}
             />
           </button>
-          <span style={{ marginLeft: '4px', color: '#ff1510', fontSize: '0.95rem' }}>
+          <span className="character-favorite-label">
             somente favoritos
           </span>
         </div>
