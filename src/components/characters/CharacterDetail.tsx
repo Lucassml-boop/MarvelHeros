@@ -141,11 +141,17 @@ export default function CharacterDetail() {
       )}
       <div className="character-detail character-detail-container">
         <div className="character-detail-header">
-          <img
-            src="/assets/logo/Group@1,5x.svg"
-            alt="Marvel Logo"
-            className="character-detail-logo"
-          />
+          <button
+            className="character-detail-logo-btn"
+            onClick={() => window.history.back()}
+            aria-label="Voltar para página anterior"
+          >
+            <img
+              src="/assets/logo/Group@1,5x.svg"
+              alt="Marvel Logo"
+              className="character-detail-logo"
+            />
+          </button>
           <div className="character-detail-search">
             <div className="character-detail-search-bg">
               <img
