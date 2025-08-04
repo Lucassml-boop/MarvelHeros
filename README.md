@@ -57,12 +57,29 @@ Acesse [http://localhost:5173](http://localhost:5173) no navegador.
 
 ```
 src/
+  public/
+    assets/                # Imagens, ícones e arquivos estáticos
   components/
-    characters/
-      CharacterDetail.tsx
-      ...
-  assets/
-  ...
+    header/              # Cabeçalho da aplicação
+      Header.tsx
+      Header.css
+    footer/              # Rodapé da aplicação
+      Footer.tsx
+      Footer.css
+    search/              # Barra de busca reutilizável
+      SearchBar.tsx
+      SearchBar.css
+    characters/          # Funcionalidades de personagens
+      CharacterList.tsx      # Listagem de personagens
+      CharacterCard.tsx      # Card individual de personagem
+      CharacterDetail.tsx    # Página de detalhes do personagem
+      CharacterList.css
+      CharacterCard.css
+      CharacterDetail.css
+  types/                 # Tipos TypeScript customizados
+  App.tsx                # Componente principal
+  main.tsx               # Ponto de entrada da aplicação
+  index.css              # Estilos globais
 ```
 
 ## Observações
