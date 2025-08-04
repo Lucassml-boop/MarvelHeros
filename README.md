@@ -24,7 +24,7 @@ Marvel Heroes é uma aplicação web desenvolvida com React, TypeScript e Vite q
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/marvelHeros.git
+git clone https://github.com/Lucassml-boop/MarvelHeros.git
 cd marvelHeros
 ```
 
