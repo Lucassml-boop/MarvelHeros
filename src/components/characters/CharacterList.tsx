@@ -24,19 +24,25 @@ export default function CharacterList() {
   const [orderAZ, setOrderAZ] = useState(true) // Começa com A-Z
   const [showFavorites, setShowFavorites] = useState(false)
   const [favorites, setFavorites] = useState<number[]>([])
+  const [page, setPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
+  const PAGE_SIZE = 20
 
   useEffect(() => {
     const favs = JSON.parse(localStorage.getItem('marvel_favorites') || '[]');
     setFavorites(favs);
   }, [])
-  function fetchCharacters(query?: string) {
+
+  function fetchCharacters(query?: string, pageNum = 1) {
     setLoading(true)
     const ts = Date.now().toString()
     const hash = md5(ts + PRIVATE_KEY + PUBLIC_KEY)
+    const offset = (pageNum - 1) * PAGE_SIZE
     axios
       .get(MARVEL_API, {
         params: {
-          limit: 20,
+          limit: PAGE_SIZE,
+          offset,
           ts,
           apikey: PUBLIC_KEY,
           hash,
@@ -45,14 +51,15 @@ export default function CharacterList() {
       })
       .then((res) => {
         setCharacters(res.data.data.results)
+        setTotalPages(Math.ceil(res.data.data.total / PAGE_SIZE))
         setLoading(false)
       })
       .catch(() => setLoading(false))
   }
 
   useEffect(() => {
-    fetchCharacters()
-  }, [])
+    fetchCharacters(undefined, page)
+  }, [page])
 
   // Ordenação dos personagens por nome A-Z ou Z-A
   const sortedCharacters = [...characters].sort((a, b) =>
@@ -77,9 +84,14 @@ export default function CharacterList() {
     })
   }
 
+  function handleSearch(query: string) {
+    setPage(1)
+    fetchCharacters(query, 1)
+  }
+
   return (
     <>
-      <SearchBar onSearch={fetchCharacters} bgColorVar="--color-bg-light" />
+      <SearchBar onSearch={handleSearch} bgColorVar="--color-bg-light" />
       <div className="character-info-row">
         <span className="character-count">
           Encontrados {displayedCharacters.length} herois
@@ -129,18 +141,42 @@ export default function CharacterList() {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div className="character-list-cards-container">
-          {displayedCharacters.length === 0 && showFavorites
-            ? null
-            : displayedCharacters.map((char) => (
-                <CharacterCard
-                  key={char.id}
-                  character={char}
-                  favorite={favorites.includes(char.id)}
-                  onToggleFavorite={() => toggleFavorite(char.id)}
-                />
-              ))}
-        </div>
+        <>
+          <div className="character-list-cards-container">
+            {displayedCharacters.length === 0 && showFavorites
+              ? null
+              : displayedCharacters.map((char) => (
+                  <CharacterCard
+                    key={char.id}
+                    character={char}
+                    favorite={favorites.includes(char.id)}
+                    onToggleFavorite={() => toggleFavorite(char.id)}
+                  />
+                ))}
+          </div>
+          {/* Paginação */}
+          {!showFavorites && (
+            <div className="character-pagination">
+              <button
+                disabled={page <= 1}
+                onClick={() => setPage(page - 1)}
+                className="character-pagination-btn"
+              >
+                Anterior
+              </button>
+              <span className="character-pagination-info">
+                Página {page} de {totalPages}
+              </span>
+              <button
+                disabled={page >= totalPages}
+                onClick={() => setPage(page + 1)}
+                className="character-pagination-btn"
+              >
+                Próxima
+              </button>
+            </div>
+          )}
+        </>
       )}
     </>
   )

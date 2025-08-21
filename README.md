@@ -88,9 +88,3 @@ src/
 - O limite de favoritos é 5 personagens.
 
 ---
-
-## Resposta técnica: Como lidar com o limite de 5 favoritos usando Redux ou Zustand?
-
-Se estivesse utilizando Redux ou Zustand para gerenciar o estado global dos favoritos, o controle do limite seria feito diretamente no reducer (Redux) ou na função de atualização do estado (Zustand). Ao tentar adicionar um novo personagem aos favoritos, a lógica verificaria se o array já possui 5 itens; caso positivo, impediria a adição e poderia disparar uma mensagem de erro ou alerta para o usuário.
-
-No Redux, isso seria implementado dentro do case do reducer responsável por adicionar favoritos, retornando o estado anterior se o limite fosse atingido. No Zustand, a função de atualização faria a mesma checagem antes de modificar o estado. Dessa forma, o limite é garantido centralmente, tornando o controle mais previsível e fácil de testar, além de evitar duplicação de lógica em múltiplos componentes.
